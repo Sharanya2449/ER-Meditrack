@@ -59,7 +59,7 @@ def api_search():
             haversine_km(user_lat, user_lng, float(h["latitude"]), float(h["longitude"])), 2
         )
 
-    within_5 = [h for h in hospitals if h["distance_km"] <= 5.0]
+    within_5 = [h for h in hospitals if h["distance_km"] <= 25.0]
     with_vacancy = [h for h in within_5 if (h["available_beds"] is not None and h["available_beds"] > 0)]
 
     ranked = sorted(with_vacancy, key=lambda x: (x["trauma_level"], x["distance_km"], x["avg_wait_minutes"]))[:3]
