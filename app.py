@@ -62,7 +62,7 @@ def api_search():
     within_25 =[h for h in hospitals if h["distance_km"] <= 25.0]
     with_vacancy = [h for h in within_25 if (h["available_beds"] is not None and h["available_beds"] > 0)]
 
-    ranked = sorted(with_vacancy, key=lambda x: (x["trauma_level"], x["distance_km"], x["avg_wait_minutes"]))[:3]
+    ranked = sorted(within_25, key=lambda x: (x["trauma_level"], x["distance_km"], x["avg_wait_minutes"]))[:3]
 
     log_search(lat=user_lat, lng=user_lng, query_text="GPS_SEARCH")
     return jsonify({"user": {"lat": user_lat, "lng": user_lng}, "results": ranked})
