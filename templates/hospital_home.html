@@ -1,0 +1,48 @@
+{% extends "hospital_base.html" %}
+{% block content %}
+
+<div class="row g-3">
+  <div class="col-lg-8">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h5>About</h5>
+        <p class="text-muted">{{ h.about }}</p>
+        <div class="alert alert-info mb-0">
+          <b>Emergency:</b> {{ h.emergency_text }}
+        </div>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mt-3">
+      <div class="card-body">
+        <h5>Departments</h5>
+        <p class="text-muted mb-0">{{ h.services }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-4">
+    <div class="card shadow-sm border-primary">
+      <div class="card-body">
+        <h5 class="mb-3">Live ER Status</h5>
+
+        {% if h.total_beds is not none %}
+          <div>Available Beds: <b>{{ h.available_beds }}</b></div>
+          <div>Total Beds: <b>{{ h.total_beds }}</b></div>
+          <div>Occupied Beds: <b>{{ h.occupied_beds }}</b></div>
+          <div class="mt-2">Avg Wait: <b>{{ h.avg_wait_minutes }} min</b></div>
+          <div class="small text-muted mt-2">Last Updated: {{ h.last_updated }}</div>
+          <span class="badge bg-success mt-2">Staff Reported</span>
+        {% else %}
+          <div class="text-muted">Vacancy not reported yet.</div>
+          <span class="badge bg-secondary mt-2">Not Reported</span>
+        {% endif %}
+
+        <hr/>
+        <a class="btn btn-outline-primary w-100" href="/">Open ER MediTrack</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

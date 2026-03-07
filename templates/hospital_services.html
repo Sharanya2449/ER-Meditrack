@@ -1,0 +1,17 @@
+{% extends "hospital_base.html" %}
+{% block content %}
+
+<div class="card shadow-sm">
+  <div class="card-body">
+    <h4>Services</h4>
+    <p class="text-muted">Core services offered by this hospital.</p>
+
+    <ul class="mb-0">
+      {% for s in (h.services or "").split("•") %}
+        {% if s.strip() %}<li>{{ s.strip() }}</li>{% endif %}
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+
+{% endblock %}

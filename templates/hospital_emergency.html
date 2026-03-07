@@ -1,0 +1,21 @@
+{% extends "hospital_base.html" %}
+{% block content %}
+
+<div class="card shadow-sm">
+  <div class="card-body">
+    <h4>Emergency Department</h4>
+    <p class="text-muted">24×7 triage, stabilization, and urgent care pathways.</p>
+
+    <div class="row g-3">
+      <div class="col-md-4"><div class="border rounded p-3">Rapid Triage</div></div>
+      <div class="col-md-4"><div class="border rounded p-3">Critical Care / ICU</div></div>
+      <div class="col-md-4"><div class="border rounded p-3">On-call Specialists</div></div>
+    </div>
+
+    <div class="alert alert-warning mt-3 mb-0">
+      If this is life-threatening, call local emergency services immediately.
+    </div>
+  </div>
+</div>
+
+{% endblock %}

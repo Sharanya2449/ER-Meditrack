@@ -49,3 +49,25 @@ CREATE TABLE search_logs (
   query_text TEXT,
   searched_at DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL
 );
+CREATE TABLE IF NOT EXISTS hospital_sites (
+  hospital_id INTEGER PRIMARY KEY,
+  name TEXT NOT NULL,
+  address TEXT,
+  phone TEXT,
+  email TEXT,
+  latitude REAL NOT NULL,
+  longitude REAL NOT NULL,
+  about TEXT,
+  emergency_text TEXT,
+  services TEXT,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS hospital_status (
+  hospital_id INTEGER PRIMARY KEY,
+  total_beds INTEGER NOT NULL,
+  occupied_beds INTEGER NOT NULL,
+  avg_wait_minutes INTEGER DEFAULT 0 NOT NULL,
+  last_updated DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  FOREIGN KEY (hospital_id) REFERENCES hospital_sites(hospital_id) ON DELETE CASCADE
+);

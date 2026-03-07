@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container py-4">
+  <h2 class="mb-3">MediTrack System</h2>
+  <p class="text-muted">Choose a portal:</p>
+
+  <div class="row g-3">
+    <div class="col-md-6">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h5>Patient Portal (ER MediTrack)</h5>
+          <p class="text-muted mb-3">Find nearby hospitals and view staff-reported vacancy.</p>
+          <a class="btn btn-danger w-100" href="/er">Open ER MediTrack</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h5>Hospital Portals</h5>
+          <p class="text-muted mb-2">Open each hospital website + staff dashboard:</p>
+          <div class="d-grid gap-2">
+            <a class="btn btn-outline-primary" href="/h/1/home">Hospital 1 Website</a>
+            <a class="btn btn-outline-primary" href="/h/2/home">Hospital 2 Website</a>
+            <a class="btn btn-outline-primary" href="/h/3/home">Hospital 3 Website</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
