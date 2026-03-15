@@ -147,6 +147,11 @@ def api_search():
 
     return jsonify({"user": {"lat": user_lat, "lng": user_lng}, "results": ranked})
 
-
+@app.route("/search")
+def search_page():
+    q = request.args.get("q", "")
+    results = search_trauma_library(q) if q else []
+    log_search(query_text=q if q else None)
+    return render_template("search.html", q=q, results=results)
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=False)
