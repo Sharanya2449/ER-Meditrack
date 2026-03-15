@@ -33,7 +33,6 @@ def haversine_km(lat1, lng1, lat2, lng2):
 # ---------- BASIC PAGES ----------
 @app.route("/")
 def home():
-    # Keep it simple: landing page later, for now just open ER directly
     return render_template("index.html")
 
 
@@ -97,6 +96,7 @@ def hospital_staff(hospital_id):
 @app.route("/api/h/<int:hospital_id>/staff/update", methods=["POST"])
 def hospital_staff_update(hospital_id):
     data = request.get_json(force=True)
+
     if data.get("admin_key") != ADMIN_KEY:
         return jsonify({"ok": False, "error": "Invalid admin key"}), 401
 
@@ -131,7 +131,7 @@ def api_search():
 
     with_vacancy = [
         h for h in within_radius
-        if (h.get("available_beds") is not None and h["available_beds"] > 0)
+        if h.get("available_beds") is not None and h["available_beds"] > 0
     ]
 
     pool = with_vacancy if with_vacancy else within_radius
@@ -145,7 +145,11 @@ def api_search():
         )
     )[:3]
 
-    return jsonify({"user": {"lat": user_lat, "lng": user_lng}, "results": ranked})
+    return jsonify({
+        "user": {"lat": user_lat, "lng": user_lng},
+        "results": ranked
+    })
+
 
 @app.route("/search")
 def search_page():
@@ -153,6 +157,8 @@ def search_page():
     results = search_trauma_library(q) if q else []
     log_search(query_text=q if q else None)
     return render_template("search.html", q=q, results=results)
+
+
 @app.route("/hospitals")
 def hospitals_directory():
     q = (request.args.get("q") or "").strip().lower()
@@ -162,25 +168,27 @@ def hospitals_directory():
     if q:
         hospitals = [
             h for h in hospitals
-            if q in (h.get("name", "").lower() + " " + (h.get("address", "").lower()))
+            if q in (h.get("name", "").lower() + " " + (h.get("address") or "").lower())
         ]
 
     for h in hospitals:
-    h["home_url"] = f"/h/{h['hospital_id']}/home"
-    h["staff_url"] = f"/h/{h['hospital_id']}/staff"
+        h["home_url"] = f"/h/{h['hospital_id']}/home"
+        h["staff_url"] = f"/h/{h['hospital_id']}/staff"
 
-    # status label for directory
-    avail = h.get("available_beds")
-    if avail is None:
-        h["status_label"] = "Not reported"
-        h["status_class"] = "bg-secondary"
-    elif int(avail) <= 0:
-        h["status_label"] = "Full"
-        h["status_class"] = "bg-danger"
-    else:
-        h["status_label"] = f"{avail} beds"
-        h["status_class"] = "bg-success"
+        avail = h.get("available_beds")
+        if avail is None:
+            h["status_label"] = "Not reported"
+            h["status_class"] = "bg-secondary"
+        elif int(avail) <= 0:
+            h["status_label"] = "Full"
+            h["status_class"] = "bg-danger"
+        else:
+            h["status_label"] = f"{avail} beds"
+            h["status_class"] = "bg-success"
 
     return render_template("hospitals.html", hospitals=hospitals, q=q)
+
+
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=False)
+    port = int(os.getenv("PORT", 5000))
+    app.run(host="0.0.0.0", port=port, debug=False)
