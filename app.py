@@ -153,5 +153,22 @@ def search_page():
     results = search_trauma_library(q) if q else []
     log_search(query_text=q if q else None)
     return render_template("search.html", q=q, results=results)
+@app.route("/hospitals")
+def hospitals_directory():
+    q = (request.args.get("q") or "").strip().lower()
+
+    hospitals = get_hospital_sites_with_status()
+
+    if q:
+        hospitals = [
+            h for h in hospitals
+            if q in (h.get("name", "").lower() + " " + (h.get("address", "").lower()))
+        ]
+
+    for h in hospitals:
+        h["home_url"] = f"/h/{h['hospital_id']}/home"
+        h["staff_url"] = f"/h/{h['hospital_id']}/staff"
+
+    return render_template("hospitals.html", hospitals=hospitals, q=q)
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=False)
