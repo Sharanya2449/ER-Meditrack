@@ -166,8 +166,20 @@ def hospitals_directory():
         ]
 
     for h in hospitals:
-        h["home_url"] = f"/h/{h['hospital_id']}/home"
-        h["staff_url"] = f"/h/{h['hospital_id']}/staff"
+    h["home_url"] = f"/h/{h['hospital_id']}/home"
+    h["staff_url"] = f"/h/{h['hospital_id']}/staff"
+
+    # status label for directory
+    avail = h.get("available_beds")
+    if avail is None:
+        h["status_label"] = "Not reported"
+        h["status_class"] = "bg-secondary"
+    elif int(avail) <= 0:
+        h["status_label"] = "Full"
+        h["status_class"] = "bg-danger"
+    else:
+        h["status_label"] = f"{avail} beds"
+        h["status_class"] = "bg-success"
 
     return render_template("hospitals.html", hospitals=hospitals, q=q)
 if __name__ == "__main__":
