@@ -25,29 +25,30 @@ VALUES
 -- Insert 3 demo hospitals only if they don't exist
 -- Insert 3 demo hospitals only if they don't exist
 -- Insert 3 demo hospitals only if they don't exist
-INSERT OR IGNORE INTO hospital_sites
+-- Insert 3 demo hospitals only if they don't exist
+INSERT OR REPLACE INTO hospital_sites
 (hospital_id, name, address, phone, email, latitude, longitude, about, emergency_text, services)
 VALUES
-(1, 'MediTrack Trauma Center – Chembur', 'Chembur, Mumbai', '+91-90000-00001', 'chembur@meditrack.demo',
- 19.0596, 72.9005,
- 'A tertiary-care trauma facility with 24×7 emergency services and critical care support.',
- '24×7 Emergency • Ambulance support • Trauma team on call',
- 'Trauma • Orthopedics • ICU • Radiology • General Surgery'),
+(1, 'MediTrack Partner Hospital – D Y Patil, Nerul', 'Sector 5, Nerul, Navi Mumbai - 400706', '+91-22-27735901', 'admin@dypatilhospitals.com',
+ 19.041105, 73.024536,
+ 'A multi-speciality tertiary-care hospital in Nerul with 24×7 emergency and critical care support.',
+ '24×7 Emergency • Ambulance support • Trauma and critical care on call',
+ 'Emergency Medicine • Trauma Care • ICU • Radiology • General Surgery'),
 
-(2, 'MediTrack Emergency Hospital – Byculla', 'Byculla, Mumbai', '+91-90000-00002', 'byculla@meditrack.demo',
- 18.9767, 72.8328,
- 'Emergency-first hospital designed for rapid triage and stabilization.',
+(2, 'MediTrack Partner Hospital – MGM, Belapur', 'Sector 1, CBD Belapur, Navi Mumbai - 400614', '+91-22-27581060', 'info@mgmmumbai.com',
+ 19.025344, 73.041346,
+ 'A multi-speciality hospital and research centre focused on emergency care, diagnostics, and tertiary services.',
  '24×7 ER • Fast triage • Stabilization and referrals',
- 'Emergency Medicine • Neuro • ICU • Diagnostics'),
+ 'Emergency Medicine • ICU • Diagnostics • Specialty Care'),
 
-(3, 'MediTrack MultiCare – Sanpada', 'Sanpada, Navi Mumbai', '+91-90000-00003', 'sanpada@meditrack.demo',
- 19.0606, 73.0140,
- 'Community hospital providing emergency support and specialty consults.',
- '24×7 Emergency • Priority triage • On-call specialists',
- 'Emergency • Pediatrics • Medicine • Diagnostics');
+(3, 'MediTrack Partner Hospital – Apollo, Navi Mumbai', 'Plot 13, Parsik Hill Road, Sector 23, CBD Belapur, Navi Mumbai - 400614', '+91-22-62806280', 'care@apollohospitals.com',
+ 19.020912, 73.029019,
+ 'A tertiary-care multi-speciality hospital in Navi Mumbai offering advanced emergency and speciality care.',
+ '24×7 Emergency • Advanced diagnostics • Specialist teams on call',
+ 'Emergency Medicine • Cardiology • Neuro • ICU • Diagnostics');
 
 -- Add status rows if missing
-INSERT OR IGNORE INTO hospital_status (hospital_id, total_beds, occupied_beds, avg_wait_minutes)
+INSERT OR REPLACE INTO hospital_status (hospital_id, total_beds, occupied_beds, avg_wait_minutes)
 VALUES
 (1, 10, 6, 20),
 (2, 8, 5, 25),
