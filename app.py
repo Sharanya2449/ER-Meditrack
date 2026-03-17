@@ -174,6 +174,7 @@ def hospitals_directory():
     for h in hospitals:
         h["home_url"] = f"/h/{h['hospital_id']}/home"
         h["staff_url"] = f"/h/{h['hospital_id']}/staff"
+        h["maps_url"] = f"https://www.google.com/maps/dir/?api=1&destination={h['latitude']},{h['longitude']}"
 
         avail = h.get("available_beds")
         if avail is None:
