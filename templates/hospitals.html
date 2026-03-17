@@ -17,11 +17,9 @@
       <div class="card-body">
         <h6 class="mb-1">{{ h.name }}</h6>
         <div class="small text-muted">{{ h.address }}</div>
-
-        <div class="d-flex gap-2 mt-2 flex-wrap">
-          <a class="btn btn-outline-primary btn-sm" href="{{ h.home_url }}">View Website</a>
+        <div class="d-flex gap-2 mt-2">
+          <a class="btn btn-outline-primary btn-sm" href="{{ h.home_url }}">Website</a>
           <a class="btn btn-outline-secondary btn-sm" href="{{ h.staff_url }}">Staff Update</a>
-          <a class="btn btn-outline-danger btn-sm" href="{{ h.maps_url }}" target="_blank">Get Directions</a>
         </div>
       </div>
     </div>

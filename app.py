@@ -172,20 +172,19 @@ def hospitals_directory():
         ]
 
     for h in hospitals:
-        h["home_url"] = f"/h/{h['hospital_id']}/home"
-        h["staff_url"] = f"/h/{h['hospital_id']}/staff"
-        h["maps_url"] = f"https://www.google.com/maps/dir/?api=1&destination={h['latitude']},{h['longitude']}"
+     h["home_url"] = f"/h/{h['hospital_id']}/home"
+     h["staff_url"] = f"/h/{h['hospital_id']}/staff"
 
-        avail = h.get("available_beds")
-        if avail is None:
-            h["status_label"] = "Not reported"
-            h["status_class"] = "bg-secondary"
-        elif int(avail) <= 0:
-            h["status_label"] = "Full"
-            h["status_class"] = "bg-danger"
-        else:
-            h["status_label"] = f"{avail} beds"
-            h["status_class"] = "bg-success"
+    avail = h.get("available_beds")
+    if avail is None:
+        h["status_label"] = "Not reported"
+        h["status_class"] = "bg-secondary"
+    elif int(avail) <= 0:
+        h["status_label"] = "Full"
+        h["status_class"] = "bg-danger"
+    else:
+        h["status_label"] = f"{avail} beds"
+        h["status_class"] = "bg-success"
 
     return render_template("hospitals.html", hospitals=hospitals, q=q)
 
